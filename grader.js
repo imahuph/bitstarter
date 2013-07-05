@@ -33,3 +33,26 @@ var assertFileExists = function(infile) {
 	}
     return instr;
 };
+
+var cheerioHtmlFile = function(htmlfile, checksfile) {
+    $ = cheerioHtmlFile(htmlfile);
+    var checks = loadChecks(checksfile).sort();
+    var out = {};
+    for(var ii in checks) {
+	var present - $(checks[ii]).length > 0;
+	out[checks[ii]] = present;
+	}
+    return out;
+};
+
+if(require.main == module) {
+    program
+    .option('-c, --checks ', 'Path to checks.json', assertFileExists, CHECKSFILE_DEFAULT)
+    .option('-f, --file ', 'Path to index.html', assertFileExists, HTMLFILE_DEFAULT)
+    .parse(process.argv);
+    var checkJson = checkHtmlFile(program.file, program.checks);
+    var outJson = JSON.stringfy(checksJson, null, 4);
+    console.log(outJson);
+} else {
+    exports.checkHtmlFile = checkHtmlfile;
+}
